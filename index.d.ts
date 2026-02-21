@@ -9,12 +9,16 @@ declare module 'fastify' {
     gracefulShutdown(
       handler: (signal: string) => Promise<void> | void,
     ): void
+    afterGracefulShutdown(
+      handler: (signal: string) => Promise<void> | void,
+    ): void
   }
 }
 
 declare namespace fastifyGracefulShutdown {
   export type fastifyGracefulShutdownOptions = {
     timeout?: number
+    acceptPreexistingHandlers?: boolean
     resetHandlersOnInit?: boolean
     handlerEventListener?: EventEmitter & { exit(code?: number): never }
   }
