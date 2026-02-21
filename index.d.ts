@@ -18,7 +18,6 @@ declare module 'fastify' {
 declare namespace fastifyGracefulShutdown {
   export type fastifyGracefulShutdownOptions = {
     timeout?: number
-    acceptPreexistingHandlers?: boolean
     resetHandlersOnInit?: boolean
     handlerEventListener?: EventEmitter & { exit(code?: number): never }
   }
