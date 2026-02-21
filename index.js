@@ -75,7 +75,9 @@ function fastifyGracefulShutdown(fastify, opts, next) {
     if (typeof handler !== 'function') {
       throw new Error('Expected a function but got a ' + typeof handler)
     }
-    fastify.addHook('onClose', () => handler(currentSignal))
+    fastify.addHook('onClose', () => {
+      if (currentSignal) return handler(currentSignal)
+    })
   }
 
   fastify.decorate('gracefulShutdown', addHandler)

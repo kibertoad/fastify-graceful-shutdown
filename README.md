@@ -43,7 +43,7 @@ fastify.after(() => {
 
 ### `afterGracefulShutdown` — On-close handler
 
-Runs **during** the `onClose` lifecycle, after the server has stopped accepting new connections and all in-flight requests have been drained. Use this for cleanup that is only safe once no more requests are being processed, such as closing database connections, disconnecting from Redis, or flushing buffers.
+Runs **during** the `onClose` lifecycle, after the server has stopped accepting new connections and all in-flight requests have been drained. These handlers **only run when shutdown was triggered by a signal** (`SIGINT`/`SIGTERM`) — they will not run if `fastify.close()` is called directly (e.g., in tests). If you need cleanup that runs on every close regardless of the trigger, use Fastify's built-in `onClose` hook instead. Use this for cleanup that is only safe once no more requests are being processed, such as closing database connections, disconnecting from Redis, or flushing buffers.
 
 ```js
 fastify.after(() => {

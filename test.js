@@ -81,7 +81,7 @@ describe('fastify-graceful-shutdown', () => {
     await fastify.close()
   })
 
-  it('afterGracefulShutdown handler is called during close', async () => {
+  it('afterGracefulShutdown does not run on direct fastify.close()', async () => {
     const fastify = Fastify()
     let handlerCalled = false
 
@@ -96,7 +96,7 @@ describe('fastify-graceful-shutdown', () => {
     await fastify.ready()
     await fastify.close()
 
-    expect(handlerCalled).to.eq(true)
+    expect(handlerCalled).to.eq(false)
   })
 
   it('afterGracefulShutdown receives signal when triggered by signal', async function () {
